@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     "SOC2 Compliance",
     "Next.js Full Stack",
   ],
-  authors: [{ name: "NovaPulse AI Team" }],
+  authors: [{ name: "OrbitX Team" }],
   openGraph: {
     title: `${siteConfig.name} — ${siteConfig.tagline}`,
     description: siteConfig.description,

@@ -164,7 +164,7 @@ export default function AdminPage() {
             </Link>
             <div>
               <h1 className="text-lg font-black tracking-tight text-white flex items-center gap-2">
-                NovaPulse Admin Hub
+                OrbitX Admin Hub
                 <span className="text-[10px] px-2 py-0.5 rounded-full bg-brand-500/10 text-brand-400 border border-brand-500/20 font-mono">
                   Full Stack
                 </span>

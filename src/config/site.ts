@@ -56,14 +56,14 @@ export interface SiteConfig {
 }
 
 export const siteConfig: SiteConfig = {
-  name: "NovaPulse AI",
-  tagline: "The Intelligent Workflow Engine for High-Growth Teams",
+  name: "OrbitX",
+  tagline: "The Intelligent Workflow & High-Performance Operating Engine",
   description:
-    "Automate complex engineering, sales, and operations pipelines with autonomous multi-agent intelligence. Connect your data, deploy instantly, and scale without limits.",
-  url: "https://novapulse.io",
+    "Automate complex engineering, data pipelines, and mission-critical workflows with autonomous intelligence. Connect your systems, deploy instantly, and scale without limits.",
+  url: "https://orbitx.io",
   announcement: {
-    badge: "v2.4 Released",
-    text: "Sub-50ms inference routing & multi-model streaming now live",
+    badge: "OrbitX v2.4",
+    text: "Sub-50ms inference routing & telemetry stream now live",
     linkText: "Read changelog →",
   },
   stats: [
@@ -186,7 +186,7 @@ export const siteConfig: SiteConfig = {
       industry: "SaaS",
       stat: "+340% throughput",
       quote:
-        "NovaPulse replaced three fragmented internal pipelines with a single unified platform. Our team shipped autonomous support triage in 4 days instead of 3 months.",
+        "OrbitX replaced three fragmented internal pipelines with a single unified platform. Our team shipped autonomous support triage in 4 days instead of 3 months.",
     },
     {
       name: "Marcus Vance",
@@ -208,7 +208,7 @@ export const siteConfig: SiteConfig = {
       industry: "E-Commerce",
       stat: "18h saved/wk per rep",
       quote:
-        "Our operations team automated order dispute analysis and supplier sync effortlessly. NovaPulse is the standard operating system for modern business logic.",
+        "Our operations team automated order dispute analysis and supplier sync effortlessly. OrbitX is the standard operating system for modern business logic.",
     },
     {
       name: "David Sterling",
@@ -219,19 +219,19 @@ export const siteConfig: SiteConfig = {
       industry: "Enterprise",
       stat: "99.995% uptime",
       quote:
-        "Reliability at scale is where NovaPulse shines. Handling millions of mission-critical customer transactions every single week without a hiccup.",
+        "Reliability at scale is where OrbitX shines. Handling millions of mission-critical customer transactions every single week without a hiccup.",
     },
   ],
   faqs: [
     {
       category: "General",
-      question: "What is NovaPulse AI and how does it integrate with existing stacks?",
+      question: "What is OrbitX and how does it integrate with existing stacks?",
       answer:
-        "NovaPulse AI is an enterprise-grade agentic workflow engine. You can connect it to your databases, APIs, and SaaS tools using our REST APIs, TypeScript/Python SDKs, or pre-built connectors. Workflows can run serverless or within your dedicated private VPC.",
+        "OrbitX is an enterprise-grade agentic workflow engine. You can connect it to your databases, APIs, and SaaS tools using our REST APIs, TypeScript/Python SDKs, or pre-built connectors. Workflows can run serverless or within your dedicated private VPC.",
     },
     {
       category: "General",
-      question: "Do I need machine learning expertise to build with NovaPulse?",
+      question: "Do I need machine learning expertise to build with OrbitX?",
       answer:
         "Not at all. You can design workflows using our intuitive web canvas, prompt templates, or clean TypeScript SDK. We handle context window management, token chunking, model routing, and error recovery automatically.",
     },
@@ -243,7 +243,7 @@ export const siteConfig: SiteConfig = {
     },
     {
       category: "Security",
-      question: "Is NovaPulse SOC2 Type II and HIPAA compliant?",
+      question: "Is OrbitX SOC2 Type II and HIPAA compliant?",
       answer:
         "Yes, our infrastructure undergoes annual SOC2 Type II audits and satisfies HIPAA requirements. Business Associate Agreements (BAAs) are available for all Growth Pro and Enterprise customers.",
     },

@@ -8,7 +8,7 @@ export function ThemeToggle() {
 
   useEffect(() => {
     // Check saved theme or system preference
-    const saved = localStorage.getItem("novapulse_theme") as "light" | "dark" | null;
+    const saved = localStorage.getItem("orbitx_theme") as "light" | "dark" | null;
     if (saved) {
       setTheme(saved);
       document.documentElement.classList.toggle("dark", saved === "dark");
@@ -22,7 +22,7 @@ export function ThemeToggle() {
   const toggleTheme = () => {
     const nextTheme = theme === "dark" ? "light" : "dark";
     setTheme(nextTheme);
-    localStorage.setItem("novapulse_theme", nextTheme);
+    localStorage.setItem("orbitx_theme", nextTheme);
     document.documentElement.classList.toggle("dark", nextTheme === "dark");
   };
 

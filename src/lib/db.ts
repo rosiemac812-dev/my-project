@@ -321,8 +321,8 @@ export function seedDemoData() {
   }
 
   const sampleContacts = [
-    { name: "Jordan Ellis", email: "jordan@cyberpoint.tech", subject: "Custom VPC deployment inquiry", message: "We are looking to deploy NovaPulse in our AWS GovCloud environment. Could we schedule a technical walkthrough with a solutions architect this Thursday?", interest: "Enterprise Cluster" },
-    { name: "Chloe Dupont", email: "cdupont@lumina.fr", subject: "Integration with proprietary fine-tuned models", message: "Hi there! Does NovaPulse support self-hosted vLLM inference endpoints with custom bearer token auth?", interest: "Growth Pro" },
+    { name: "Jordan Ellis", email: "jordan@cyberpoint.tech", subject: "Custom VPC deployment inquiry", message: "We are looking to deploy OrbitX in our AWS GovCloud environment. Could we schedule a technical walkthrough with a solutions architect this Thursday?", interest: "Enterprise Cluster" },
+    { name: "Chloe Dupont", email: "cdupont@lumina.fr", subject: "Integration with proprietary fine-tuned models", message: "Hi there! Does OrbitX support self-hosted vLLM inference endpoints with custom bearer token auth?", interest: "Growth Pro" },
   ];
 
   for (const contact of sampleContacts) {

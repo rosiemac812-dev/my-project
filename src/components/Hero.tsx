@@ -107,7 +107,7 @@ export function Hero({ onOpenWaitlist }: HeroProps) {
               <div className="w-3 h-3 rounded-full bg-emerald-500/80" />
               <span className="ml-2 text-xs font-mono text-neutral-400 flex items-center gap-1.5">
                 <Workflow className="w-3.5 h-3.5 text-brand-400" />
-                novapulse-pipeline-v2.production.json
+                orbitx-pipeline-v2.production.json
               </span>
             </div>
 

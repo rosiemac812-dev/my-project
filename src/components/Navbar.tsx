@@ -93,7 +93,7 @@ export function Navbar({ onOpenWaitlist }: NavbarProps) {
             <Link
               href="/dashboard"
               className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-brand-600/20 border border-brand-500/40 text-brand-300 hover:bg-brand-600/30 hover:text-white transition-all shadow-sm"
-              title="Launch the NovaPulse AI App Dashboard"
+              title="Launch the OrbitX App Dashboard"
             >
               <Rocket className="w-3.5 h-3.5 text-brand-400" />
               <span>Launch App</span>

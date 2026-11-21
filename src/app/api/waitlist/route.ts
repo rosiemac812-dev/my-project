@@ -46,7 +46,7 @@ export async function POST(req: NextRequest) {
       alreadyExists: result.alreadyExists || false,
       message: result.alreadyExists
         ? "You're already on the waitlist! We'll reach out soon."
-        : "You've successfully secured your spot on the NovaPulse early access waitlist!",
+        : "You've successfully secured your spot on the OrbitX early access waitlist!",
     });
   } catch (error) {
     console.error("Waitlist POST error:", error);

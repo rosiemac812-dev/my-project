@@ -26,7 +26,7 @@ export function Testimonials() {
             Trusted by the Teams Building the Future
           </h2>
           <p className="text-neutral-400 text-base sm:text-lg mt-3">
-            See how high-velocity engineering and operations leaders deploy autonomous agents with NovaPulse.
+            See how high-velocity engineering and operations leaders deploy autonomous agents with OrbitX.
           </p>
         </div>
 

@@ -1,8 +1,8 @@
-# NovaPulse AI — Full-Stack Workflow Automation Platform & Landing Engine
+# OrbitX — Full-Stack Workflow Automation Platform & Landing Engine
 
 A modern, production-grade Full-Stack Application built with **Next.js 15 (App Router)**, **TypeScript**, **Tailwind CSS**, and **Node.js built-in SQLite (`node:sqlite`)**.
 
-This project provides both a high-converting **Business Landing Page** and the complete **NovaPulse Cloud Studio Web Application** with live agentic workflow builders, execution sandboxes, telemetry logs, API credential management, and an administrative hub.
+This project provides both a high-converting **Business Landing Page** and the complete **OrbitX Cloud Studio Web Application** with live agentic workflow builders, execution sandboxes, telemetry logs, API credential management, and an administrative hub.
 
 ---
 

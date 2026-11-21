@@ -326,7 +326,7 @@ export default function DashboardPage() {
               </div>
               <div className="flex flex-col">
                 <span className="font-extrabold text-sm tracking-tight text-white">
-                  NovaPulse AI
+                  OrbitX
                 </span>
                 <span className="text-[10px] text-neutral-400 font-mono">
                   Cloud Studio • v2.4
@@ -1105,9 +1105,9 @@ export default function DashboardPage() {
                   Integration Example (TypeScript SDK)
                 </div>
                 <div className="p-3.5 rounded-xl bg-neutral-950 border border-neutral-850 font-mono text-xs text-neutral-300 overflow-x-auto">
-                  <pre>{`import { NovaPulse } from "@novapulse/sdk";
+                  <pre>{`import { OrbitX } from "@orbitx/sdk";
 
-const client = new NovaPulse({ apiKey: process.env.NOVAPULSE_API_KEY });
+const client = new OrbitX({ apiKey: process.env.ORBITX_API_KEY });
 const result = await client.workflows.dispatch({
   workflowId: "support-triage",
   payload: { customerTicketId: "4819", priority: "urgent" }

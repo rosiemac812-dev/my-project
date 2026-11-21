@@ -18,7 +18,7 @@ export async function GET(req: NextRequest) {
       return new NextResponse(csv, {
         headers: {
           "Content-Type": "text/csv; charset=utf-8",
-          "Content-Disposition": `attachment; filename="novapulse-contacts-${Date.now()}.csv"`,
+          "Content-Disposition": `attachment; filename="orbitx-contacts-${Date.now()}.csv"`,
         },
       });
     }
@@ -34,7 +34,7 @@ export async function GET(req: NextRequest) {
     return new NextResponse(csv, {
       headers: {
         "Content-Type": "text/csv; charset=utf-8",
-        "Content-Disposition": `attachment; filename="novapulse-waitlist-${Date.now()}.csv"`,
+        "Content-Disposition": `attachment; filename="orbitx-waitlist-${Date.now()}.csv"`,
       },
     });
   } catch (error) {

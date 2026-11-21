@@ -35,7 +35,7 @@ export function Faq() {
             Got Questions? We’ve Got Answers.
           </h2>
           <p className="text-neutral-400 text-base mt-3">
-            Find everything you need to know about NovaPulse AI architecture, data security, and setup.
+            Find everything you need to know about OrbitX architecture, data security, and setup.
           </p>
         </div>
 

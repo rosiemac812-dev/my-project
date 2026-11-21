@@ -74,7 +74,7 @@ export function ContactSection() {
                 </div>
                 <div>
                   <div className="text-xs font-bold text-white">Direct Email</div>
-                  <div className="text-xs text-neutral-400">enterprise@novapulse.io</div>
+                  <div className="text-xs text-neutral-400">enterprise@orbitx.io</div>
                 </div>
               </div>
 

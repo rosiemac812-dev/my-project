@@ -40,6 +40,30 @@
       "created_at": "2026-11-21T08:50:57.220Z",
       "sender": "ios",
       "is_cancelled": false
+    },
+    {
+      "id": "cd8d9509-f36b-4f2e-b6fe-428f9dcd0c9c",
+      "role": "agent",
+      "content": "I am waiting for the production build to finish.\nI am waiting for static page generation and build completion.\nI am waiting for the build to finish.\nI have built the full-stack web application: the **NovaPulse Cloud Studio App** at `/dashboard`, integrated directly alongside the landing page and admin portal.\n\n---\n\n### 🚀 What Has Been Built\n\n#### 1. Full-Stack Web App: Cloud Studio (`/dashboard`)\n* **Interactive App Dashboard** ([dashboard/page.tsx](https://github.com/rosiemac812-dev/my-project/blob/main/src/app/dashboard/page.tsx)):\n  * **Workspace Overview**: Real-time KPI summary (Active Pipelines, Total Runs, Average Latency, and Token Consumption), quick test execution runner, and live activity stream.\n  * **Workflow Studio**: Visual pipeline manager with pre-seeded enterprise workflows (*Autonomous Support Triage*, *Sales Lead Scoring*, *Financial Filing Synthesizer*, *Code Security Auditor*), status toggling (active/paused), and a modal to create custom multi-step agent chains.\n  * **Live Execution Sandbox**: Run any pipeline with arbitrary JSON or prompt inputs, watch real-time node execution waterfalls, monitor token usage, and inspect synthesized JSON results.\n  * **Telemetry & Pipeline Logs**: Audit trail of every execution run with latency timings, cost estimations, and an inspector modal to review exact input/output payloads.\n  * **API Credentials Manager**: Generate live secret API keys (`np_live_...`) with instant copy-to-clipboard, prefix masking, and revocation controls.\n  * **Model Routing Configuration**: Configure inference fallback rules between Gemini 2.0, Claude 3.5 Sonnet, and GPT-4o.\n\n#### 2. Backend Engine & Database\n* **Database Models** ([db.ts](https://github.com/rosiemac812-dev/my-project/blob/main/src/lib/db.ts)):\n  * `workflows` — Chained autonomous agent definitions with JSON node configurations.\n  * `pipeline_runs` — Telemetry, token counts, cost calculations, and run timestamps.\n  * `api_keys` — Authentication keys for external SDK access.\n* **REST API Endpoints**:\n  * `GET`, `POST`, `PATCH`, `DELETE` [`/api/app/workflows`](https://github.com/rosiemac812-dev/my-project/blob/main/src/app/api/app/workflows/route.ts)\n  * `POST` [`/api/app/run`](https://github.com/rosiemac812-dev/my-project/blob/main/src/app/api/app/run/route.ts) — Multi-node execution engine\n  * `GET` [`/api/app/runs`](https://github.com/rosiemac812-dev/my-project/blob/main/src/app/api/app/runs/route.ts) — Execution history & telemetry\n  * `GET`, `POST`, `DELETE` [`/api/app/apikeys`](https://github.com/rosiemac812-dev/my-project/blob/main/src/app/api/app/apikeys/route.ts) — API key manager\n  * `GET` [`/api/app/stats`](https://github.com/rosiemac812-dev/my-project/blob/main/src/app/api/app/stats/route.ts) — App analytics\n\n#### 3. Seamless Integration\n* **Navigation & Hero CTAs** ([Navbar.tsx](https://github.com/rosiemac812-dev/my-project/blob/main/src/components/Navbar.tsx), [Hero.tsx](https://github.com/rosiemac812-dev/my-project/blob/main/src/components/Hero.tsx)): Added direct **\"Launch App\"** and **\"Launch Cloud Studio App\"** action buttons so visitors can jump straight into the application from the landing page.\n* **Complete Documentation** ([README.md](https://github.com/rosiemac812-dev/my-project/blob/main/README.md)): Updated setup guides, endpoint references, and architecture diagrams.\n\n---\n\n### 💻 Running the Application\n\n```bash\n# Start the Next.js server\nnpm run dev\n```\n\n* **Public Landing Page**: `http://localhost:3000`\n* **Cloud Studio App**: `http://localhost:3000/dashboard`\n* **Admin Lead Portal**: `http://localhost:3000/admin`\n\nAll changes are committed and pushed automatically.",
+      "status": "completed",
+      "model": "gemini-3.8-flash-high",
+      "client_type": "gemini-bridge",
+      "parent_message_id": "3337c1d6-ba76-41d7-958d-5ba6ede46547",
+      "created_at": "2026-11-21T08:55:31.312Z",
+      "sender": "macOS",
+      "is_cancelled": false
+    },
+    {
+      "id": "1b0d4132-c708-4a5d-8ae5-2122de7a86a8",
+      "role": "user",
+      "content": "Is this OrbitX",
+      "status": "pending",
+      "model": "gemini-3.8-flash-high",
+      "client_type": "gemini-bridge",
+      "parent_message_id": null,
+      "created_at": "2026-11-21T08:55:31.313Z",
+      "sender": "ios",
+      "is_cancelled": false
     }
   ]
 }

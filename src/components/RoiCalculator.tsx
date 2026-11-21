@@ -30,7 +30,7 @@ export function RoiCalculator({ onOpenWaitlist }: RoiCalculatorProps) {
             Calculate Your Organization's Savings
           </h2>
           <p className="text-neutral-400 text-base sm:text-lg mt-3">
-            See how much engineering time and operational expense NovaPulse reclaims for your team each year.
+            See how much engineering time and operational expense OrbitX reclaims for your team each year.
           </p>
         </div>
 
