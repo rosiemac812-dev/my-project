@@ -3,6 +3,19 @@
   "name": "Build a landing page for my",
   "createdAt": "2026-11-21T08:38:47.728Z",
   "filename": "bd917f84-01bb-4575-b4e3-8261c18704d9.json",
-  "geminiStarted": false,
-  "messages": []
+  "geminiStarted": true,
+  "messages": [
+    {
+      "id": "51ba66dc-7629-4666-8581-6afe26fc0754",
+      "role": "user",
+      "content": "Build a landing page for my business a full stack app",
+      "status": "pending",
+      "model": "gemini-3.8-flash-high",
+      "client_type": "gemini-bridge",
+      "parent_message_id": null,
+      "created_at": "2026-11-21T08:42:20.830Z",
+      "sender": "ios",
+      "is_cancelled": false
+    }
+  ]
 }
