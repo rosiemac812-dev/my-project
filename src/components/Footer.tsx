@@ -96,27 +96,27 @@ export function Footer() {
           {/* Product links */}
           <div className="space-y-3">
             <div className="text-xs font-bold uppercase tracking-wider text-neutral-300">
-              Platform
+              DEX Platform
             </div>
             <ul className="space-y-2 text-xs text-neutral-400">
               <li>
-                <a href="#features" className="hover:text-white transition-colors">
-                  Autonomous Mesh
+                <a href="#markets" className="hover:text-white transition-colors">
+                  Live Crypto Markets
                 </a>
               </li>
               <li>
-                <a href="#demo" className="hover:text-white transition-colors">
-                  Interactive Sandbox
+                <Link href="/dashboard" className="hover:text-white transition-colors">
+                  DEX Trading Terminal
+                </Link>
+              </li>
+              <li>
+                <a href="#staking" className="hover:text-white transition-colors">
+                  Liquid Staking (24.8% APY)
                 </a>
               </li>
               <li>
-                <a href="#roi" className="hover:text-white transition-colors">
-                  ROI Savings Calculator
-                </a>
-              </li>
-              <li>
-                <a href="#pricing" className="hover:text-white transition-colors">
-                  Predictable Pricing
+                <a href="#tokenomics" className="hover:text-white transition-colors">
+                  $ORBX Tokenomics
                 </a>
               </li>
             </ul>

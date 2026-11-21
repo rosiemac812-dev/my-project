@@ -50,6 +50,49 @@ export function getDb(): DatabaseSync {
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     );
 
+    CREATE TABLE IF NOT EXISTS crypto_portfolio (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      symbol TEXT UNIQUE NOT NULL,
+      name TEXT NOT NULL,
+      balance REAL NOT NULL,
+      avg_buy_price REAL NOT NULL
+    );
+
+    CREATE TABLE IF NOT EXISTS crypto_orders (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      pair TEXT NOT NULL,
+      side TEXT NOT NULL,
+      order_type TEXT NOT NULL,
+      price REAL NOT NULL,
+      amount REAL NOT NULL,
+      total REAL NOT NULL,
+      status TEXT DEFAULT 'filled',
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
+
+    CREATE TABLE IF NOT EXISTS crypto_transactions (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      tx_hash TEXT NOT NULL,
+      type TEXT NOT NULL,
+      from_asset TEXT NOT NULL,
+      to_asset TEXT NOT NULL,
+      amount REAL NOT NULL,
+      value_usd REAL NOT NULL,
+      status TEXT DEFAULT 'confirmed',
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
+
+    CREATE TABLE IF NOT EXISTS crypto_stakes (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      symbol TEXT NOT NULL,
+      amount REAL NOT NULL,
+      duration_days INTEGER NOT NULL,
+      apy REAL NOT NULL,
+      rewards_earned REAL DEFAULT 0,
+      status TEXT DEFAULT 'active',
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
+
     CREATE TABLE IF NOT EXISTS workflows (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
@@ -618,4 +661,297 @@ export function getAppStats() {
     totalTokens,
     apiKeysCount,
   };
+}
+
+// ==========================================
+// Crypto Exchange Engine, Portfolio & Staking
+// ==========================================
+
+export interface CryptoAsset {
+  symbol: string;
+  name: string;
+  balance: number;
+  current_price: number;
+  value_usd: number;
+  change24h: number;
+  allocation_percent: number;
+}
+
+export interface CryptoOrder {
+  id: number;
+  pair: string;
+  side: "buy" | "sell";
+  order_type: "market" | "limit";
+  price: number;
+  amount: number;
+  total: number;
+  status: string;
+  created_at: string;
+}
+
+export interface CryptoTransaction {
+  id: number;
+  tx_hash: string;
+  type: string;
+  from_asset: string;
+  to_asset: string;
+  amount: number;
+  value_usd: number;
+  status: string;
+  created_at: string;
+}
+
+export interface CryptoStake {
+  id: number;
+  symbol: string;
+  amount: number;
+  duration_days: number;
+  apy: number;
+  rewards_earned: number;
+  status: string;
+  created_at: string;
+}
+
+const LIVE_PRICES: Record<string, { name: string; price: number; change24h: number }> = {
+  ORBX: { name: "OrbitX Token", price: 14.85, change24h: 18.42 },
+  BTC: { name: "Bitcoin", price: 96420.0, change24h: 4.18 },
+  ETH: { name: "Ethereum", price: 3420.5, change24h: 5.62 },
+  SOL: { name: "Solana", price: 214.8, change24h: 8.94 },
+  USDT: { name: "Tether USD", price: 1.0, change24h: 0.01 },
+  USDC: { name: "USD Coin", price: 1.0, change24h: 0.0 },
+};
+
+export function ensureDefaultCryptoData() {
+  const db = getDb();
+  const countRow = db.prepare("SELECT COUNT(*) as count FROM crypto_portfolio").get() as { count: number };
+  if (countRow.count > 0) return;
+
+  const initialAssets = [
+    { symbol: "ORBX", name: "OrbitX Token", balance: 5000.0, avg_buy_price: 11.2 },
+    { symbol: "BTC", name: "Bitcoin", balance: 0.85, avg_buy_price: 89400.0 },
+    { symbol: "ETH", name: "Ethereum", balance: 8.4, avg_buy_price: 3100.0 },
+    { symbol: "SOL", name: "Solana", balance: 42.0, avg_buy_price: 185.0 },
+    { symbol: "USDT", name: "Tether USD", balance: 18500.0, avg_buy_price: 1.0 },
+  ];
+
+  for (const a of initialAssets) {
+    db.prepare(`
+      INSERT OR REPLACE INTO crypto_portfolio (symbol, name, balance, avg_buy_price)
+      VALUES (?, ?, ?, ?)
+    `).run(a.symbol, a.name, a.balance, a.avg_buy_price);
+  }
+
+  // Pre-seed some recent trading activity
+  const sampleTx = [
+    { type: "swap", from: "ETH", to: "ORBX", amount: 2.0, val: 6841.0, hash: "0x8f2a...c391" },
+    { type: "buy", from: "USDT", to: "SOL", amount: 20.0, val: 4296.0, hash: "0x3e1d...98b2" },
+    { type: "stake", from: "ORBX", to: "ORBX Vault", amount: 2000.0, val: 29700.0, hash: "0x77c4...ef14" },
+  ];
+
+  for (const tx of sampleTx) {
+    db.prepare(`
+      INSERT INTO crypto_transactions (tx_hash, type, from_asset, to_asset, amount, value_usd, status)
+      VALUES (?, ?, ?, ?, ?, ?, 'confirmed')
+    `).run(tx.hash, tx.type, tx.from, tx.to, tx.amount, tx.val);
+  }
+
+  // Pre-seed an active stake
+  db.prepare(`
+    INSERT INTO crypto_stakes (symbol, amount, duration_days, apy, rewards_earned, status)
+    VALUES ('ORBX', 2000.0, 365, 24.8, 412.5, 'active')
+  `).run();
+}
+
+export function getCryptoPortfolio() {
+  const db = getDb();
+  ensureDefaultCryptoData();
+
+  const rows = db.prepare("SELECT * FROM crypto_portfolio").all() as Array<{
+    symbol: string;
+    name: string;
+    balance: number;
+    avg_buy_price: number;
+  }>;
+
+  let totalValueUsd = 0;
+  const assets: CryptoAsset[] = rows.map((r) => {
+    const market = LIVE_PRICES[r.symbol] || { name: r.name, price: 1.0, change24h: 0.0 };
+    const valueUsd = r.balance * market.price;
+    totalValueUsd += valueUsd;
+    return {
+      symbol: r.symbol,
+      name: r.name,
+      balance: r.balance,
+      current_price: market.price,
+      value_usd: valueUsd,
+      change24h: market.change24h,
+      allocation_percent: 0,
+    };
+  });
+
+  // Calculate allocations
+  for (const a of assets) {
+    a.allocation_percent = totalValueUsd > 0 ? (a.value_usd / totalValueUsd) * 100 : 0;
+  }
+
+  return {
+    totalValueUsd,
+    dayChangeUsd: totalValueUsd * 0.084, // simulated +8.4% 24h PnL
+    dayChangePercent: 8.4,
+    assets: assets.sort((a, b) => b.value_usd - a.value_usd),
+  };
+}
+
+export function executeCryptoTrade(data: {
+  pair: string;
+  side: "buy" | "sell";
+  order_type: "market" | "limit";
+  price: number;
+  amount: number;
+}) {
+  const db = getDb();
+  ensureDefaultCryptoData();
+
+  const total = data.price * data.amount;
+  const [base, quote] = data.pair.split("/"); // e.g. ["ORBX", "USDT"]
+
+  // Insert order
+  const orderStmt = db.prepare(`
+    INSERT INTO crypto_orders (pair, side, order_type, price, amount, total, status)
+    VALUES (?, ?, ?, ?, ?, ?, 'filled')
+  `);
+  const info = orderStmt.run(data.pair, data.side, data.order_type, data.price, data.amount, total);
+
+  // Update portfolio balances
+  if (data.side === "buy") {
+    // Deduct quote (USDT), add base (e.g. ORBX)
+    db.prepare("UPDATE crypto_portfolio SET balance = balance - ? WHERE symbol = ?").run(total, quote);
+    db.prepare(`
+      INSERT INTO crypto_portfolio (symbol, name, balance, avg_buy_price)
+      VALUES (?, ?, ?, ?)
+      ON CONFLICT(symbol) DO UPDATE SET balance = balance + excluded.balance
+    `).run(base, LIVE_PRICES[base]?.name || base, data.amount, data.price);
+  } else {
+    // Sell base, receive quote
+    db.prepare("UPDATE crypto_portfolio SET balance = balance - ? WHERE symbol = ?").run(data.amount, base);
+    db.prepare(`
+      INSERT INTO crypto_portfolio (symbol, name, balance, avg_buy_price)
+      VALUES (?, ?, ?, ?)
+      ON CONFLICT(symbol) DO UPDATE SET balance = balance + excluded.balance
+    `).run(quote, "Tether USD", total, 1.0);
+  }
+
+  // Record transaction
+  const randomHex = Math.random().toString(36).substring(2, 8);
+  const txHash = `0x${randomHex}...${Math.random().toString(36).substring(2, 6)}`;
+  db.prepare(`
+    INSERT INTO crypto_transactions (tx_hash, type, from_asset, to_asset, amount, value_usd, status)
+    VALUES (?, ?, ?, ?, ?, ?, 'confirmed')
+  `).run(
+    txHash,
+    data.side,
+    data.side === "buy" ? quote : base,
+    data.side === "buy" ? base : quote,
+    data.amount,
+    total
+  );
+
+  return {
+    success: true,
+    orderId: Number(info.lastInsertRowid),
+    txHash,
+    pair: data.pair,
+    side: data.side,
+    amount: data.amount,
+    price: data.price,
+    total,
+  };
+}
+
+export function executeCryptoSwap(fromAsset: string, toAsset: string, fromAmount: number) {
+  const fromPrice = LIVE_PRICES[fromAsset]?.price || 1.0;
+  const toPrice = LIVE_PRICES[toAsset]?.price || 1.0;
+  const valueUsd = fromAmount * fromPrice;
+  const toAmount = valueUsd / toPrice;
+
+  const db = getDb();
+  ensureDefaultCryptoData();
+
+  // Deduct fromAsset, credit toAsset
+  db.prepare("UPDATE crypto_portfolio SET balance = MAX(0, balance - ?) WHERE symbol = ?").run(fromAmount, fromAsset);
+  db.prepare(`
+    INSERT INTO crypto_portfolio (symbol, name, balance, avg_buy_price)
+    VALUES (?, ?, ?, ?)
+    ON CONFLICT(symbol) DO UPDATE SET balance = balance + excluded.balance
+  `).run(toAsset, LIVE_PRICES[toAsset]?.name || toAsset, toAmount, toPrice);
+
+  const randomHex = Math.random().toString(36).substring(2, 8);
+  const txHash = `0x${randomHex}...${Math.random().toString(36).substring(2, 6)}`;
+  db.prepare(`
+    INSERT INTO crypto_transactions (tx_hash, type, from_asset, to_asset, amount, value_usd, status)
+    VALUES (?, 'swap', ?, ?, ?, ?, 'confirmed')
+  `).run(txHash, fromAsset, toAsset, toAmount, valueUsd);
+
+  return {
+    success: true,
+    txHash,
+    fromAsset,
+    toAsset,
+    fromAmount,
+    toAmount,
+    valueUsd,
+  };
+}
+
+export function stakeCryptoTokens(symbol: string, amount: number, durationDays: number, apy: number) {
+  const db = getDb();
+  ensureDefaultCryptoData();
+
+  db.prepare("UPDATE crypto_portfolio SET balance = MAX(0, balance - ?) WHERE symbol = ?").run(amount, symbol);
+
+  const info = db.prepare(`
+    INSERT INTO crypto_stakes (symbol, amount, duration_days, apy, rewards_earned, status)
+    VALUES (?, ?, ?, ?, 0.0, 'active')
+  `).run(symbol, amount, durationDays, apy);
+
+  const randomHex = Math.random().toString(36).substring(2, 8);
+  const txHash = `0x${randomHex}...${Math.random().toString(36).substring(2, 6)}`;
+  db.prepare(`
+    INSERT INTO crypto_transactions (tx_hash, type, from_asset, to_asset, amount, value_usd, status)
+    VALUES (?, 'stake', ?, 'Staking Vault', ?, ?, 'confirmed')
+  `).run(txHash, symbol, amount, amount * (LIVE_PRICES[symbol]?.price || 1.0));
+
+  return {
+    success: true,
+    stakeId: Number(info.lastInsertRowid),
+    txHash,
+    symbol,
+    amount,
+    durationDays,
+    apy,
+  };
+}
+
+export function getCryptoTransactions(limit = 25): CryptoTransaction[] {
+  const db = getDb();
+  ensureDefaultCryptoData();
+  return db
+    .prepare("SELECT * FROM crypto_transactions ORDER BY id DESC LIMIT ?")
+    .all(limit) as unknown as CryptoTransaction[];
+}
+
+export function getCryptoOrders(limit = 25): CryptoOrder[] {
+  const db = getDb();
+  ensureDefaultCryptoData();
+  return db
+    .prepare("SELECT * FROM crypto_orders ORDER BY id DESC LIMIT ?")
+    .all(limit) as unknown as CryptoOrder[];
+}
+
+export function getCryptoStakes(): CryptoStake[] {
+  const db = getDb();
+  ensureDefaultCryptoData();
+  return db
+    .prepare("SELECT * FROM crypto_stakes ORDER BY id DESC")
+    .all() as unknown as CryptoStake[];
 }

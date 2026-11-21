@@ -1,5 +1,6 @@
 export interface SiteConfig {
   name: string;
+  symbol: string;
   tagline: string;
   description: string;
   url: string;
@@ -8,7 +9,17 @@ export interface SiteConfig {
     text: string;
     linkText: string;
   };
-  stats: { label: string; value: string; helper: string }[];
+  marketStats: { label: string; value: string; change: string }[];
+  cryptoPrices: {
+    symbol: string;
+    name: string;
+    price: number;
+    change24h: number;
+    volume24h: string;
+    high24h: number;
+    low24h: number;
+    sparkline: number[];
+  }[];
   features: {
     title: string;
     description: string;
@@ -16,19 +27,18 @@ export interface SiteConfig {
     tag?: string;
     highlight?: boolean;
   }[];
-  pricing: {
-    monthlyDiscountPercent: number;
-    plans: {
-      id: string;
-      name: string;
-      tagline: string;
-      priceMonthly: number;
-      priceAnnual: number;
-      popular?: boolean;
-      features: string[];
-      cta: string;
-    }[];
-  };
+  stakingTiers: {
+    durationDays: number;
+    apyPercent: number;
+    multiplier: string;
+    recommended?: boolean;
+  }[];
+  tokenomics: {
+    category: string;
+    percentage: number;
+    amount: string;
+    color: string;
+  }[];
   testimonials: {
     name: string;
     role: string;
@@ -36,7 +46,6 @@ export interface SiteConfig {
     avatar: string;
     rating: number;
     quote: string;
-    industry: "SaaS" | "E-Commerce" | "Fintech" | "Enterprise";
     stat: string;
   }[];
   faqs: {
@@ -44,283 +53,199 @@ export interface SiteConfig {
     question: string;
     answer: string;
   }[];
-  demoScenarios: {
-    id: string;
-    title: string;
-    category: string;
-    description: string;
-    prompt: string;
-    steps: { name: string; latency: string; status: "success" | "running" }[];
-    output: Record<string, unknown>;
-  }[];
 }
 
 export const siteConfig: SiteConfig = {
   name: "OrbitX",
-  tagline: "The Intelligent Workflow & High-Performance Operating Engine",
+  symbol: "ORBX",
+  tagline: "The Next-Generation Multi-Chain Crypto Exchange & Liquidity Hub",
   description:
-    "Automate complex engineering, data pipelines, and mission-critical workflows with autonomous intelligence. Connect your systems, deploy instantly, and scale without limits.",
+    "Trade, swap, and stake digital assets with institutional-grade latency, zero-gas layer-2 execution, and non-custodial MPC wallet security. The premier platform for modern Web3 finance.",
   url: "https://orbitx.io",
   announcement: {
-    badge: "OrbitX v2.4",
-    text: "Sub-50ms inference routing & telemetry stream now live",
-    linkText: "Read changelog →",
+    badge: "OrbitX DEX 2.0 Live",
+    text: "Sub-millisecond orderbook & zero-gas cross-chain bridge now active",
+    linkText: "Trade Now →",
   },
-  stats: [
-    { label: "Active Pipelines Executed", value: "48M+", helper: "Monthly operations" },
-    { label: "Average Latency Reduction", value: "73%", helper: "Optimized model routing" },
-    { label: "Global Enterprise SLA", value: "99.99%", helper: "Zero unplanned downtime" },
-    { label: "Engineering Hours Saved", value: "140k+", helper: "Across 2,400+ orgs" },
+  marketStats: [
+    { label: "24h Trading Volume", value: "$4.82B+", change: "+14.8%" },
+    { label: "Total Value Locked (TVL)", value: "$1.49B", change: "+8.2%" },
+    { label: "Active Web3 Traders", value: "1,240,000+", change: "+32.4%" },
+    { label: "Average Execution Speed", value: "1.2ms", change: "Institutional SLA" },
+  ],
+  cryptoPrices: [
+    {
+      symbol: "ORBX",
+      name: "OrbitX Token",
+      price: 14.85,
+      change24h: 18.42,
+      volume24h: "$142.8M",
+      high24h: 15.2,
+      low24h: 12.4,
+      sparkline: [12.4, 12.9, 13.5, 13.2, 14.1, 14.6, 14.85],
+    },
+    {
+      symbol: "BTC",
+      name: "Bitcoin",
+      price: 96420.0,
+      change24h: 4.18,
+      volume24h: "$42.1B",
+      high24h: 97100.0,
+      low24h: 93800.0,
+      sparkline: [93.8, 94.2, 95.1, 94.8, 95.9, 96.2, 96.42],
+    },
+    {
+      symbol: "ETH",
+      name: "Ethereum",
+      price: 3420.5,
+      change24h: 5.62,
+      volume24h: "$21.8B",
+      high24h: 3480.0,
+      low24h: 3240.0,
+      sparkline: [3.24, 3.28, 3.32, 3.36, 3.39, 3.41, 3.42],
+    },
+    {
+      symbol: "SOL",
+      name: "Solana",
+      price: 214.8,
+      change24h: 8.94,
+      volume24h: "$8.4B",
+      high24h: 219.0,
+      low24h: 198.5,
+      sparkline: [198.5, 202.1, 205.4, 208.9, 211.2, 213.5, 214.8],
+    },
+    {
+      symbol: "AVAX",
+      name: "Avalanche",
+      price: 38.45,
+      change24h: 3.21,
+      volume24h: "$1.2B",
+      high24h: 39.1,
+      low24h: 36.8,
+      sparkline: [36.8, 37.1, 37.5, 37.9, 38.1, 38.3, 38.45],
+    },
   ],
   features: [
     {
-      title: "Autonomous Agent Orchestration",
+      title: "Ultra-Fast Central Limit Order Book",
       description:
-        "Chain complex multi-step reasoning models with dynamic fallback strategies, self-healing retries, and strict schema compliance.",
-      icon: "Cpu",
-      tag: "Core Engine",
-      highlight: true,
-    },
-    {
-      title: "Unified Knowledge Ingestion",
-      description:
-        "Connect PostgreSQL, Snowflake, Notion, GitHub, and S3 in minutes with hybrid vector-keyword retrieval and automatic index freshness.",
-      icon: "Database",
-      tag: "Data Sync",
-    },
-    {
-      title: "Sub-Millisecond Inference Routing",
-      description:
-        "Intelligently routes requests between Gemini, Claude, and local open-source models based on real-time cost, latency, and capability targets.",
+        "Off-chain matching with on-chain cryptographic settlement. Experience sub-millisecond fills without frontrunning or toxic MEV extraction.",
       icon: "Zap",
-      tag: "Smart Routing",
+      tag: "Deep Liquidity",
       highlight: true,
     },
     {
-      title: "Enterprise Security & Compliance",
+      title: "Non-Custodial MPC Security",
       description:
-        "SOC2 Type II certified, HIPAA compliant, automated PII scrubbing, end-to-end data encryption at rest and in transit.",
+        "Multi-Party Computation (MPC) architecture ensures you maintain 100% control of your private keys. Backed by institutional hardware isolation.",
       icon: "ShieldCheck",
-      tag: "Security",
+      tag: "Security First",
     },
     {
-      title: "Granular Cost & Observability",
+      title: "Zero-Gas Cross-Chain Bridge",
       description:
-        "Full token accounting, semantic tracing, latency waterfall charts, and per-tenant rate limiting out of the box.",
-      icon: "BarChart3",
-      tag: "Observability",
+        "Seamlessly swap native assets across Ethereum, Solana, Arbitrum, Base, and BNB Chain in a single transaction with automated liquidity routing.",
+      icon: "RefreshCw",
+      tag: "Cross-Chain",
+      highlight: true,
     },
     {
-      title: "Instant Developer SDKs & Webhooks",
+      title: "Smart Yield Staking Vaults",
       description:
-        "Drop-in SDKs for TypeScript, Python, and Go with automatic streaming backpressure and real-time webhook delivery.",
+        "Earn up to 24.8% APY by locking ORBX tokens or providing liquidity to automated market maker pools with automated compounding.",
+      icon: "TrendingUp",
+      tag: "DeFi Yield",
+    },
+    {
+      title: "Institutional API & WebSocket Feeds",
+      description:
+        "Ultra-low latency REST, WebSocket, and FIX protocol APIs for quantitative hedge funds and algorithmic market makers.",
       icon: "Code2",
-      tag: "Extensible",
+      tag: "HFT Trading",
+    },
+    {
+      title: "Cryptographic Proof of Reserves",
+      description:
+        "Real-time Merkle-tree verification guaranteeing all platform user assets are 1:1 backed on-chain with continuous public auditability.",
+      icon: "Database",
+      tag: "Transparency",
     },
   ],
-  pricing: {
-    monthlyDiscountPercent: 20,
-    plans: [
-      {
-        id: "starter",
-        name: "Developer",
-        tagline: "Perfect for indie builders and prototype validation.",
-        priceMonthly: 0,
-        priceAnnual: 0,
-        features: [
-          "Up to 25,000 monthly workflow runs",
-          "3 active autonomous agents",
-          "Standard community support",
-          "Basic vector storage (500MB)",
-          "Community integrations (Slack & Webhooks)",
-          "7-day execution logs retention",
-        ],
-        cta: "Start Free",
-      },
-      {
-        id: "pro",
-        name: "Growth Pro",
-        tagline: "For scaling engineering and operations teams.",
-        priceMonthly: 49,
-        priceAnnual: 39,
-        popular: true,
-        features: [
-          "500,000 monthly workflow runs",
-          "Unlimited autonomous agents & chains",
-          "Sub-second priority inference routing",
-          "20GB vector knowledge storage",
-          "100+ native integrations (Salesforce, Hubspot, GitHub)",
-          "90-day telemetry & full semantic tracing",
-          "Priority 24/7 Slack & email support",
-          "Role-based access controls (RBAC)",
-        ],
-        cta: "Start 14-Day Free Trial",
-      },
-      {
-        id: "enterprise",
-        name: "Enterprise Fleet",
-        tagline: "Dedicated clusters, custom models, and compliance guarantees.",
-        priceMonthly: 299,
-        priceAnnual: 239,
-        features: [
-          "Unlimited monthly workflow executions",
-          "Dedicated VPC / On-premise deployment option",
-          "Custom fine-tuned model hosting",
-          "99.99% uptime SLA with financial guarantees",
-          "Custom SOC2 / HIPAA BAA agreements",
-          "Real-time PII anonymization engine",
-          "Dedicated solutions engineer & onboarding",
-          "Custom integrations & procurement support",
-        ],
-        cta: "Contact Enterprise Sales",
-      },
-    ],
-  },
+  stakingTiers: [
+    { durationDays: 30, apyPercent: 8.5, multiplier: "1.0x" },
+    { durationDays: 90, apyPercent: 14.2, multiplier: "1.5x" },
+    { durationDays: 180, apyPercent: 19.4, multiplier: "2.0x" },
+    { durationDays: 365, apyPercent: 24.8, multiplier: "3.0x", recommended: true },
+  ],
+  tokenomics: [
+    { category: "Community Staking & Liquidity Rewards", percentage: 40, amount: "400,000,000 ORBX", color: "#10b981" },
+    { category: "Ecosystem Development & Grants", percentage: 25, amount: "250,000,000 ORBX", color: "#3b82f6" },
+    { category: "Public & Early Community Airdrop", percentage: 15, amount: "150,000,000 ORBX", color: "#8b5cf6" },
+    { category: "Core Contributors (4-Year Vesting)", percentage: 12, amount: "120,000,000 ORBX", color: "#f59e0b" },
+    { category: "Strategic Security & Insurance Reserve", percentage: 8, amount: "80,000,000 ORBX", color: "#ef4444" },
+  ],
   testimonials: [
     {
-      name: "Sarah Chen",
-      role: "VP of Engineering",
-      company: "LinearScale AI",
-      avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
-      rating: 5,
-      industry: "SaaS",
-      stat: "+340% throughput",
-      quote:
-        "OrbitX replaced three fragmented internal pipelines with a single unified platform. Our team shipped autonomous support triage in 4 days instead of 3 months.",
-    },
-    {
-      name: "Marcus Vance",
-      role: "Head of Infrastructure",
-      company: "NordicFin Tech",
+      name: "Alexey Volkov",
+      role: "Managing Partner",
+      company: "Kronos Quantitative Capital",
       avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80",
       rating: 5,
-      industry: "Fintech",
-      stat: "62% cost reduction",
+      stat: "$180M Monthly Volume",
       quote:
-        "The smart routing engine alone cut our LLM monthly spend by 62% while improving response accuracy. The SOC2 compliance reporting made audit a breeze.",
+        "OrbitX order book execution matches the speed of centralized exchanges while keeping our funds non-custodial. Zero slippage routing has saved our desk over $420k in slippage.",
     },
     {
-      name: "Elena Rostova",
-      role: "Chief Product Officer",
-      company: "Veloce Commerce",
-      avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=150&auto=format&fit=crop&q=80",
+      name: "Sophia Delgado",
+      role: "Lead DeFi Strategist",
+      company: "Aetheria Fund",
+      avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
       rating: 5,
-      industry: "E-Commerce",
-      stat: "18h saved/wk per rep",
+      stat: "+22.4% Annualized Yield",
       quote:
-        "Our operations team automated order dispute analysis and supplier sync effortlessly. OrbitX is the standard operating system for modern business logic.",
+        "The automated staking vaults and multi-chain bridging make OrbitX our primary execution hub. The UI is slick, responsive, and built for serious traders.",
     },
     {
-      name: "David Sterling",
-      role: "Lead Systems Architect",
-      company: "Aether Dynamics",
+      name: "Kenji Sato",
+      role: "Core Contributor",
+      company: "Solana Ecosystem Guild",
       avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80",
       rating: 5,
-      industry: "Enterprise",
-      stat: "99.995% uptime",
+      stat: "1.2ms Fill Latency",
       quote:
-        "Reliability at scale is where OrbitX shines. Handling millions of mission-critical customer transactions every single week without a hiccup.",
+        "The cross-chain bridge between Solana and Arbitrum is blazingly fast. No wrapped tokens, no bridge hacks, just raw native swaps.",
     },
   ],
   faqs: [
     {
-      category: "General",
-      question: "What is OrbitX and how does it integrate with existing stacks?",
+      category: "Trading",
+      question: "What makes OrbitX different from Uniswap or Binance?",
       answer:
-        "OrbitX is an enterprise-grade agentic workflow engine. You can connect it to your databases, APIs, and SaaS tools using our REST APIs, TypeScript/Python SDKs, or pre-built connectors. Workflows can run serverless or within your dedicated private VPC.",
-    },
-    {
-      category: "General",
-      question: "Do I need machine learning expertise to build with OrbitX?",
-      answer:
-        "Not at all. You can design workflows using our intuitive web canvas, prompt templates, or clean TypeScript SDK. We handle context window management, token chunking, model routing, and error recovery automatically.",
+        "OrbitX combines the deep liquidity and advanced limit order book of centralized exchanges with the self-custody and trustless nature of decentralized protocols. You trade with sub-millisecond fills without ever giving up ownership of your private keys.",
     },
     {
       category: "Security",
-      question: "How is our proprietary company data protected?",
+      question: "Are user funds safe and non-custodial?",
       answer:
-        "Your data is never used to train public models. We enforce zero-retention policies with LLM providers, encrypt all secrets with AES-256-GCM, and support automated PII masking before payloads touch any inference provider.",
+        "Yes, 100%. OrbitX never holds your private keys. Every order is cryptographically signed by your connected wallet (MetaMask, Phantom, Ledger, etc.) and settled transparently on-chain. All smart contracts have been thoroughly audited by CertiK and OpenZeppelin.",
     },
     {
-      category: "Security",
-      question: "Is OrbitX SOC2 Type II and HIPAA compliant?",
+      category: "Fees",
+      question: "What are the trading fees on OrbitX?",
       answer:
-        "Yes, our infrastructure undergoes annual SOC2 Type II audits and satisfies HIPAA requirements. Business Associate Agreements (BAAs) are available for all Growth Pro and Enterprise customers.",
+        "Makers pay 0.00% fees! Taker fees start at a low 0.04% and can be reduced by up to 50% by holding or staking ORBX tokens. Layer 2 execution means gas fees are virtually zero (less than $0.001 per trade).",
     },
     {
-      category: "Billing",
-      question: "Can I upgrade, downgrade, or cancel at any time?",
+      category: "Tokens & Staking",
+      question: "How do staking rewards and APY work?",
       answer:
-        "Yes, you have full freedom. Subscriptions can be changed or cancelled directly in the billing dashboard at any time with zero long-term commitments, with prorated adjustments.",
+        "Stakers earn real yield generated from platform trading fees, distributed in USDC and ORBX. Locking your tokens for longer durations (up to 365 days) provides reward multipliers of up to 3.0x, reaching up to 24.8% APY.",
     },
     {
-      category: "Integrations",
-      question: "Which LLMs and models are supported out of the box?",
+      category: "Wallets",
+      question: "Which crypto wallets are supported?",
       answer:
-        "We support Gemini 1.5/2.0/Pro, Claude 3.5 Sonnet/Opus, GPT-4o, Mistral Large, Llama 3.3, and custom fine-tuned endpoints hosted on Hugging Face, AWS Bedrock, or Azure OpenAI.",
-    },
-  ],
-  demoScenarios: [
-    {
-      id: "support-triage",
-      title: "Support Ticket Smart Triage",
-      category: "Customer Experience",
-      description: "Classify incoming tickets, extract sentiment, query docs, and draft verified solutions.",
-      prompt: "Incoming priority ticket #4819: Customer reports billing webhook timeout on EU-Central cluster.",
-      steps: [
-        { name: "Parse intent & extract entity tokens", latency: "14ms", status: "success" },
-        { name: "Query vector knowledge base (Docs & Incidents)", latency: "28ms", status: "success" },
-        { name: "Analyze cluster health metrics via Datadog API", latency: "36ms", status: "success" },
-        { name: "Synthesize resolution & draft personalized response", latency: "62ms", status: "success" },
-      ],
-      output: {
-        classification: "Urgent - Infrastructure / Billing Webhook",
-        customer_tier: "Enterprise Tier 1",
-        confidence_score: "99.4%",
-        resolution_draft:
-          "Identified temporary DNS propagation delay on EU-Central worker node b4. Webhook queue has automatically drained and retry succeeded with HTTP 200. Follow-up ping sent to customer Slack channel.",
-        suggested_action: "Auto-resolve & notify on-call engineer",
-      },
-    },
-    {
-      id: "lead-enrichment",
-      title: "Sales Lead Enrichment & Scoring",
-      category: "Revenue Operations",
-      description: "Enrich incoming leads with firmographic data, score buying intent, and route to account executive.",
-      prompt: "Inbound lead: alex@scalevector.com (VP Engineering, ScaleVector, 250 employees)",
-      steps: [
-        { name: "Scrape company metadata & funding rounds", latency: "22ms", status: "success" },
-        { name: "Assess tech stack compatibility (Next.js, Postgres)", latency: "31ms", status: "success" },
-        { name: "Calculate ICP fit score & propensity to buy", latency: "18ms", status: "success" },
-        { name: "Draft tailored outbound deck & schedule in CRM", latency: "45ms", status: "success" },
-      ],
-      output: {
-        company: "ScaleVector Dynamics",
-        industry: "Cloud Data Engineering",
-        fit_score: "96 / 100 (Tier A - High Value)",
-        estimated_contract_value: "$45,000 / yr",
-        assigned_rep: "Sarah Jenkins (Enterprise AE)",
-        next_step: "Meeting invite sent for Tuesday 10:00 AM PST",
-      },
-    },
-    {
-      id: "doc-synthesis",
-      title: "Automated Financial Report Synthesis",
-      category: "Finance & Legal",
-      description: "Ingest raw SEC 10-Q filings, compare quarter-over-quarter metrics, and generate executive summaries.",
-      prompt: "Analyze Q3 SEC Filing PDF (84 pages) and highlight margin compression risks.",
-      steps: [
-        { name: "OCR & chunk unstructured financial tables", latency: "42ms", status: "success" },
-        { name: "Calculate YoY gross margin delta vs forecast", latency: "29ms", status: "success" },
-        { name: "Flag regulatory & foreign exchange risk factors", latency: "38ms", status: "success" },
-        { name: "Export formatted executive briefing PDF", latency: "51ms", status: "success" },
-      ],
-      output: {
-        gross_margin_change: "-1.8% QoQ (due to semiconductor supply costs)",
-        recurring_revenue_growth: "+32.4% YoY ($112.4M ARR)",
-        primary_risk_flag: "Foreign exchange volatility in APAC region",
-        executive_recommendation: "Hedge Q4 currency risk & renegotiate foundry supplier tiers",
-      },
+        "OrbitX supports MetaMask, Phantom, Coinbase Wallet, WalletConnect v2, Rainbow, Rabby, and hardware wallets including Ledger and Trezor.",
     },
   ],
 };
