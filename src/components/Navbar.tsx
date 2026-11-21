@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import { ThemeToggle } from "./ThemeToggle";
-import { Menu, X, ArrowRight, Sparkles, LayoutDashboard } from "lucide-react";
+import { Menu, X, ArrowRight, Sparkles, LayoutDashboard, Rocket } from "lucide-react";
 
 interface NavbarProps {
   onOpenWaitlist: () => void;
@@ -91,12 +91,21 @@ export function Navbar({ onOpenWaitlist }: NavbarProps) {
           {/* Actions */}
           <div className="hidden md:flex items-center gap-3">
             <Link
+              href="/dashboard"
+              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-brand-600/20 border border-brand-500/40 text-brand-300 hover:bg-brand-600/30 hover:text-white transition-all shadow-sm"
+              title="Launch the NovaPulse AI App Dashboard"
+            >
+              <Rocket className="w-3.5 h-3.5 text-brand-400" />
+              <span>Launch App</span>
+            </Link>
+
+            <Link
               href="/admin"
               className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-neutral-900 border border-neutral-800 text-neutral-300 hover:text-white hover:border-neutral-700 transition-all"
               title="View full-stack leads management panel"
             >
-              <LayoutDashboard className="w-3.5 h-3.5 text-brand-400" />
-              Admin Portal
+              <LayoutDashboard className="w-3.5 h-3.5 text-neutral-400" />
+              <span>Admin</span>
             </Link>
 
             <ThemeToggle />
@@ -177,11 +186,19 @@ export function Navbar({ onOpenWaitlist }: NavbarProps) {
 
           <div className="pt-3 border-t border-neutral-800/80 flex flex-col gap-2.5">
             <Link
+              href="/dashboard"
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center justify-center gap-2 w-full py-2.5 text-xs font-semibold rounded-xl bg-brand-600/20 border border-brand-500/40 text-brand-300"
+            >
+              <Rocket className="w-4 h-4 text-brand-400" />
+              Launch Cloud App Studio
+            </Link>
+            <Link
               href="/admin"
               onClick={() => setMobileMenuOpen(false)}
               className="flex items-center justify-center gap-2 w-full py-2.5 text-xs font-semibold rounded-xl bg-neutral-900 border border-neutral-800 text-neutral-300"
             >
-              <LayoutDashboard className="w-4 h-4 text-brand-400" />
+              <LayoutDashboard className="w-4 h-4 text-neutral-400" />
               View Admin Lead Manager
             </Link>
             <button

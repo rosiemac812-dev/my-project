@@ -1,40 +1,59 @@
-# NovaPulse AI — Full-Stack Business Landing Page & Lead Engine
+# NovaPulse AI — Full-Stack Workflow Automation Platform & Landing Engine
 
-A high-converting, modern Full-Stack Business Landing Page built with **Next.js 15 (App Router)**, **TypeScript**, **Tailwind CSS**, and **Node.js built-in SQLite (`node:sqlite`)**.
+A modern, production-grade Full-Stack Application built with **Next.js 15 (App Router)**, **TypeScript**, **Tailwind CSS**, and **Node.js built-in SQLite (`node:sqlite`)**.
 
-Designed for SaaS, AI startups, and modern digital businesses with live interactive components, lead/waitlist capture, ROI calculators, interactive sandbox, and a built-in admin dashboard.
+This project provides both a high-converting **Business Landing Page** and the complete **NovaPulse Cloud Studio Web Application** with live agentic workflow builders, execution sandboxes, telemetry logs, API credential management, and an administrative hub.
 
 ---
 
-## 🌟 Key Features
+## 🌟 Key Application Features
 
-### 🖥️ Frontend & UX
-- **Hero & Value Proposition**: High-impact hero section with live status pill, dynamic animated agent mesh preview, and conversion CTAs.
-- **Interactive Sandbox Demo**: Hands-on AI workflow playground with live step-by-step latency simulation and telemetry analysis.
-- **ROI & Cost Savings Calculator**: Interactive sliders for team size, manual hours, and compensation calculating annual reclaimed capital.
+### 🎮 Cloud Studio App (`/dashboard`)
+- **Workspace Overview**:
+  - Real-time KPI metrics: Active Pipelines, Execution Count, Average Latency Waterfall, and Token Usage.
+  - Quick Test Runner directly on the overview board.
+  - Recent live execution stream with status tags and latency records.
+- **Workflow Studio & Pipeline Builder**:
+  - Create and configure custom multi-agent autonomous chains (Trigger → Vector Ingestion → Multi-Model LLM Reasoner → Webhook Delivery).
+  - Pre-seeded with 4 ready-to-run enterprise workflows:
+    1. *Autonomous Support Triage*
+    2. *Sales Lead Enrichment & Scoring*
+    3. *Financial Filing Risk Synthesizer*
+    4. *Code Security & Vulnerability Auditor*
+  - Toggle workflows between active and paused states.
+- **Live Execution Sandbox**:
+  - Test any pipeline with arbitrary JSON or text event prompts.
+  - Real-time step-by-step node execution simulation with latency waterfalls.
+  - Granular token counters, cost estimates, and syntax-highlighted synthesized JSON output.
+- **Pipeline Telemetry & Execution Logs**:
+  - Complete searchable audit trail of all pipeline runs.
+  - Inspect input prompts, synthesized output schemas, latency breakdowns, and timestamps.
+- **API Credentials Manager**:
+  - Generate and manage live API keys (`np_live_...`).
+  - Copy-to-clipboard secret modals and instant revocation controls.
+- **Model Routing & Settings**:
+  - Dynamic routing between Gemini 2.0 Flash/Pro, Claude 3.5 Sonnet, and GPT-4o based on latency targets and cost budgets.
+
+---
+
+### 🖥️ Public Landing Page (`/`)
+- **Hero & Value Proposition**: High-impact banner, live status pill, interactive agent mesh preview canvas, and conversion CTAs.
+- **Hands-on Live Product Sandbox**: Try autonomous triage live on the landing page.
+- **Interactive ROI & Savings Calculator**: Interactive sliders for team size, manual hours, and compensation calculating annual reclaimed capital.
 - **Predictable Pricing Matrix**: Monthly/Annual toggle (with 20% discount badge), feature breakdown, and enterprise SLA guarantee.
 - **Bento Grid Feature Showcase**: Detailed breakdown of autonomous agent orchestration, unified knowledge sync, sub-millisecond routing, and SOC2 compliance.
 - **Filterable Customer Testimonials**: Industry-segmented social proof (SaaS, Fintech, E-Commerce, Enterprise) with verified metrics.
 - **Searchable FAQ Accordion**: Instant question lookup by keywords or categories.
-- **Dark / Light Theme Switcher**: Persistent theme toggle respecting user and system preferences.
+- **Dark / Light Theme Switcher**: Theme toggle respecting user and system preferences.
 
-### ⚙️ Full-Stack & Backend Capabilities
-- **Early Access Waitlist System**:
-  - Modal form with real-time validation and anti-spam duplicate prevention.
-  - Generates real-time waitlist line position badge and fireworks confetti upon reservation.
-  - Automatically persisted in local SQLite database (`data/landing.db`).
-- **Contact & Enterprise Inquiries**:
-  - Validated contact form with department/interest routing and SLA response guarantees.
-- **Engineering Newsletter Capture**:
-  - Fast email subscriber signup in the footer with duplicate detection.
-- **Interactive Admin Dashboard (`/admin`)**:
-  - KPI overview: Total waitlist signups, inquiry count, unread notifications, newsletter subscribers.
-  - Live filterable table with search by name, email, or company.
-  - Status pipeline manager (`new` → `contacted` → `qualified` → `converted`).
-  - One-click **CSV Data Export** (`/api/admin/export`).
-  - One-click **Demo Data Seeder** (`/api/admin/seed`) to preview live entries instantly.
-- **Zero-Dependency Database**:
-  - Powered by Node.js 22/24 built-in `node:sqlite` (`DatabaseSync`), requiring zero external native compilation or database drivers.
+---
+
+### 💼 Executive Admin Portal (`/admin`)
+- Real-time metrics on waitlist signups, unread customer inquiries, and changelog subscribers.
+- Filterable lead table with search by name, email, or company.
+- Pipeline status manager (`new` → `contacted` → `qualified` → `converted`).
+- One-click **CSV Data Export** (`/api/admin/export`).
+- One-click **Demo Data Seeder** (`/api/admin/seed`).
 
 ---
 
@@ -50,31 +69,22 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to view the landing page.
-Visit [http://localhost:3000/admin](http://localhost:3000/admin) to access the lead management panel.
+* **Landing Page**: [http://localhost:3000](http://localhost:3000)
+* **Cloud Studio App**: [http://localhost:3000/dashboard](http://localhost:3000/dashboard)
+* **Admin Hub**: [http://localhost:3000/admin](http://localhost:3000/admin)
 
 ### 3. Build for Production
 ```bash
-npm run build
-npm run start
+npm run build && npm start
 ```
 
 ---
 
-## 🎨 Easy Brand Customization
+## 🎨 Easy Brand & Site Customization
 
 All text copy, pricing tiers, FAQs, feature highlights, and company metadata can be customized in a single configuration file:
 
 📁 **[`src/config/site.ts`](file:///home/runner/work/my-project/my-project/src/config/site.ts)**
-
-```typescript
-export const siteConfig = {
-  name: "Your Business Name",
-  tagline: "Your compelling value proposition",
-  description: "Detailed description of your product or services...",
-  // customize features, pricing plans, testimonials, faqs, and more
-};
-```
 
 ---
 
@@ -84,30 +94,25 @@ export const siteConfig = {
 ├── src/
 │   ├── app/
 │   │   ├── page.tsx               # Main Landing Page
-│   │   ├── layout.tsx             # Root Layout & Metadata
-│   │   ├── globals.css            # Tailwind & Theme Styles
+│   │   ├── dashboard/
+│   │   │   └── page.tsx           # Cloud Studio App (Workflows, Sandbox, Logs, Keys)
 │   │   ├── admin/
 │   │   │   └── page.tsx           # Admin Leads & Inquiries Dashboard
+│   │   ├── layout.tsx             # Root Layout & Metadata
+│   │   ├── globals.css            # Tailwind & Theme Styles
 │   │   └── api/
+│   │       ├── app/
+│   │       │   ├── workflows/     # Workflow CRUD
+│   │       │   ├── run/           # Workflow Execution Engine
+│   │       │   ├── runs/          # Telemetry & Logs
+│   │       │   ├── apikeys/       # API Key Generation & Revocation
+│   │       │   └── stats/         # Workspace Stats API
 │   │       ├── waitlist/route.ts  # Waitlist POST & GET
 │   │       ├── contact/route.ts   # Contact inquiry POST
 │   │       ├── newsletter/route.ts# Newsletter subscription POST
 │   │       ├── demo/route.ts      # Interactive workflow simulation
 │   │       └── admin/             # Admin management & export APIs
 │   ├── components/                # Modular React UI components
-│   │   ├── Navbar.tsx
-│   │   ├── Hero.tsx
-│   │   ├── InteractiveDemo.tsx
-│   │   ├── SocialProof.tsx
-│   │   ├── Features.tsx
-│   │   ├── RoiCalculator.tsx
-│   │   ├── Pricing.tsx
-│   │   ├── Testimonials.tsx
-│   │   ├── Faq.tsx
-│   │   ├── ContactSection.tsx
-│   │   ├── Footer.tsx
-│   │   ├── WaitlistModal.tsx
-│   │   └── ThemeToggle.tsx
 │   ├── config/
 │   │   └── site.ts                # Centralized site & brand configuration
 │   └── lib/

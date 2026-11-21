@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import {
   Sparkles,
@@ -14,6 +15,7 @@ import {
   Activity,
   Layers,
   Check,
+  Rocket,
 } from "lucide-react";
 
 interface HeroProps {
@@ -60,22 +62,22 @@ export function Hero({ onOpenWaitlist }: HeroProps) {
 
           {/* Call to Actions */}
           <div className="flex flex-col sm:flex-row items-center gap-4 pt-2 w-full sm:w-auto">
-            <button
-              onClick={onOpenWaitlist}
+            <Link
+              href="/dashboard"
               className="w-full sm:w-auto px-7 py-3.5 rounded-xl font-semibold text-white bg-gradient-to-r from-brand-600 via-brand-500 to-accent-600 hover:from-brand-500 hover:to-accent-500 shadow-xl shadow-brand-500/25 active:scale-95 transition-all flex items-center justify-center gap-2 group"
             >
-              <Sparkles className="w-4 h-4 text-brand-200" />
-              <span>Get Early Access Free</span>
+              <Rocket className="w-4 h-4 text-brand-200" />
+              <span>Launch Cloud Studio App</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </button>
+            </Link>
 
-            <a
-              href="#demo"
+            <button
+              onClick={onOpenWaitlist}
               className="w-full sm:w-auto px-6 py-3.5 rounded-xl font-semibold text-neutral-300 bg-neutral-900/90 hover:bg-neutral-800 border border-neutral-800 hover:text-white transition-all flex items-center justify-center gap-2"
             >
-              <Play className="w-4 h-4 text-brand-400 fill-brand-400/20" />
-              <span>Interactive Sandbox Demo</span>
-            </a>
+              <Sparkles className="w-4 h-4 text-brand-400" />
+              <span>Get Early Access</span>
+            </button>
           </div>
 
           {/* Trust Guarantees */}

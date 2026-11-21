@@ -16,6 +16,30 @@
       "created_at": "2026-11-21T08:42:20.830Z",
       "sender": "ios",
       "is_cancelled": false
+    },
+    {
+      "id": "291a4d31-d0a7-41f7-8b4a-f013598475aa",
+      "role": "agent",
+      "content": "I am waiting for the production build verification to finish. I will update you as soon as the build succeeds.\nI am waiting for the production build to complete.\nI have built a modern **Full-Stack Business Landing Page** with built-in lead capture, live product simulation, interactive calculators, and an admin management dashboard.\n\n---\n\n### 🚀 What Has Been Built\n\n#### 1. Interactive Landing Page Experience\n* **High-Impact Hero Section** ([Hero.tsx](https://github.com/rosiemac812-dev/my-project/blob/main/src/components/Hero.tsx)): Compelling value proposition, live system status pill, dual CTAs, and an interactive agent mesh preview canvas.\n* **Hands-on Live Product Sandbox** ([InteractiveDemo.tsx](https://github.com/rosiemac812-dev/my-project/blob/main/src/components/InteractiveDemo.tsx)): Allows visitors to test simulated workflows in real-time with step-by-step telemetry, token metrics, and JSON payloads.\n* **Interactive ROI & Savings Calculator** ([RoiCalculator.tsx](https://github.com/rosiemac812-dev/my-project/blob/main/src/components/RoiCalculator.tsx)): Sliders for team size, manual hours, and compensation calculating annual reclaimed capital and ROI multiples.\n* **Pricing Matrix** ([Pricing.tsx](https://github.com/rosiemac812-dev/my-project/blob/main/src/components/Pricing.tsx)): Monthly and annual toggle with a 20% discount badge, feature breakdown, and enterprise SLA highlights.\n* **Bento Grid Feature Showcase** ([Features.tsx](https://github.com/rosiemac812-dev/my-project/blob/main/src/components/Features.tsx)): Highlighting core capabilities (Autonomous Orchestration, Unified Knowledge Sync, Sub-ms Routing, Enterprise Security).\n* **Filterable Testimonials** ([Testimonials.tsx](https://github.com/rosiemac812-dev/my-project/blob/main/src/components/Testimonials.tsx)): Segmented customer proof by industry (SaaS, Fintech, E-Commerce, Enterprise).\n* **Searchable FAQ Accordion** ([Faq.tsx](https://github.com/rosiemac812-dev/my-project/blob/main/src/components/Faq.tsx)): Quick search and categorized filters.\n* **Dark / Light Theme Toggle** ([ThemeToggle.tsx](https://github.com/rosiemac812-dev/my-project/blob/main/src/components/ThemeToggle.tsx)): Theme switching with system preference persistence.\n\n#### 2. Full-Stack Backend & Database Engine\n* **Zero-Dependency SQLite Database** ([db.ts](https://github.com/rosiemac812-dev/my-project/blob/main/src/lib/db.ts)): Uses Node's built-in `node:sqlite` (`DatabaseSync`), requiring zero external database drivers or native compilation.\n* **Waitlist Lead Capture Modal** ([WaitlistModal.tsx](https://github.com/rosiemac812-dev/my-project/blob/main/src/components/WaitlistModal.tsx)): Anti-spam validation, position-in-line calculation, and celebratory confetti upon signup.\n* **Direct Sales & Contact Form** ([ContactSection.tsx](https://github.com/rosiemac812-dev/my-project/blob/main/src/components/ContactSection.tsx)): Department routing and inquiry persistence.\n* **Engineering Newsletter Subscription** ([Footer.tsx](https://github.com/rosiemac812-dev/my-project/blob/main/src/components/Footer.tsx)): Rapid email capture with duplicate prevention.\n* **Live API Endpoints**:\n  * `/api/waitlist` — Register & check queue positions\n  * `/api/contact` — Receive customer inquiries\n  * `/api/newsletter` — Subscribe emails\n  * `/api/demo` — Run pipeline simulations\n  * `/api/admin/leads`, `/api/admin/stats`, `/api/admin/seed`, `/api/admin/export`\n\n#### 3. Full-Stack Admin Hub (`/admin`)\n* **Executive Dashboard** ([admin/page.tsx](https://github.com/rosiemac812-dev/my-project/blob/main/src/app/admin/page.tsx)): Real-time metrics on waitlist signups, unread inquiries, and subscribers.\n* **Lead Pipeline Manager**: Filter by name/company/email and update statuses (`new` → `contacted` → `qualified` → `converted`).\n* **CSV Export**: One-click download of all waitlist entries and inquiries.\n* **Demo Data Seeder**: Built-in button to populate sample enterprise leads for testing.\n\n---\n\n### 🎨 How to Customize for Your Business\n\nYou can customize the business name, tagline, copy, pricing plans, and FAQs directly in:\n👉 **[site.ts](https://github.com/rosiemac812-dev/my-project/blob/main/src/config/site.ts)**\n\n### 💻 Running the App Locally\n\n```bash\n# Start development server on http://localhost:3000\nnpm run dev\n\n# Or run optimized production build\nnpm run build && npm start\n```\n\nAll changes are committed and pushed automatically.",
+      "status": "completed",
+      "model": "gemini-3.8-flash-high",
+      "client_type": "gemini-bridge",
+      "parent_message_id": "51ba66dc-7629-4666-8581-6afe26fc0754",
+      "created_at": "2026-11-21T08:50:57.219Z",
+      "sender": "macOS",
+      "is_cancelled": false
+    },
+    {
+      "id": "3337c1d6-ba76-41d7-958d-5ba6ede46547",
+      "role": "user",
+      "content": "Build me a app",
+      "status": "pending",
+      "model": "gemini-3.8-flash-high",
+      "client_type": "gemini-bridge",
+      "parent_message_id": null,
+      "created_at": "2026-11-21T08:50:57.220Z",
+      "sender": "ios",
+      "is_cancelled": false
     }
   ]
 }
